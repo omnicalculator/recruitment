@@ -1,12 +1,14 @@
 import React from 'react';
 import ApiProvider from './ApiProvider';
-import FlightListPage from './FlightListPage';
+import FlightListPageGraphQL from './FlightListPageGraphQL';
+// import FlightListPage from "./FlightListPage";
 
 function App() {
   return (
     <ApiProvider>
       <h1>SpaceX App</h1>
-      <FlightListPage />
+      {/*<FlightListPage />*/}
+      <FlightListPageGraphQL />
     </ApiProvider>
   );
 }

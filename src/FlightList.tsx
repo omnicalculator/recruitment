@@ -8,7 +8,7 @@ const FLIGHT_LIST_TABLE_HEADERS = ['id', 'date', 'site name', 'mission', 'rocket
 
 type Props = {
     launches: Launch[];
-  }
+}
 
 export default function FlightList({ launches }: Props) {
     return (<table>
@@ -18,7 +18,7 @@ export default function FlightList({ launches }: Props) {
           </tr>
         </thead>
         <tbody>
-          {launches.map(launch => (
+          {launches?.map(launch => (
             <LaunchRow launch={launch} />
           ))}
         </tbody>
