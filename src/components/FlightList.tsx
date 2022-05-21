@@ -1,26 +1,38 @@
-import { Launch } from '../models/FlightListTypes'
-import LaunchRow from './FlightListRow'
+import { Launch } from "../models/FlightListTypes";
+import LaunchRow from "./FlightListRow";
 
-import './FlightList.css';
+import "./FlightList.css";
 
-
-const FLIGHT_LIST_TABLE_HEADERS = ['id', 'date', 'site name', 'mission', 'rocket', 'ship', 'port', 'image'];
+const FLIGHT_LIST_TABLE_HEADERS = [
+  "id",
+  "date",
+  "site name",
+  "mission",
+  "rocket",
+  "ship",
+  "port",
+  "image",
+];
 
 type Props = {
-    launches: Launch[];
-}
+  launches: Launch[];
+};
 
 export default function FlightList({ launches }: Props) {
-    return (<table>
-        <thead>
-          <tr>
-            { FLIGHT_LIST_TABLE_HEADERS.map(header => <th>{header}</th>)}
-          </tr>
-        </thead>
-        <tbody>
-          {launches?.map(launch => (
-            <LaunchRow launch={launch} />
+  return (
+    <table>
+      <thead>
+        <tr>
+          {FLIGHT_LIST_TABLE_HEADERS.map((header) => (
+            <th key={header}>{header}</th>
           ))}
-        </tbody>
-      </table>);
+        </tr>
+      </thead>
+      <tbody>
+        {launches?.map((launch) => (
+          <LaunchRow launch={launch} key={launch.id} />
+        ))}
+      </tbody>
+    </table>
+  );
 }

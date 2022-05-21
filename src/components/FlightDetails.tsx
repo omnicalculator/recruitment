@@ -1,7 +1,6 @@
-import {useParams} from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 export default function FlightDetails() {
-  const {id}= useParams();
-  console.log(id);
-  return <div>{id}</div>
+  const { id } = useParams();
+  return <div>{id}</div>;
 }

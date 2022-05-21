@@ -1,11 +1,19 @@
-import { gql, useQuery } from "@apollo/client";
+import { gql, useLazyQuery, useQuery } from "@apollo/client";
 
 import FlightList from "../components/FlightList";
 import FlightListFilters from "../components/FlightListFilters";
-
+import Pagination from "../components/Pagination";
+import { useCallback, useEffect, useState } from "react";
+import { debounce } from "lodash";
 const FLIGHT_LIST_QUERY = gql`
-  query GetPastLaunches {
-    launchesPast(limit: 10, sort: "launch_date_local", order: "asc") {
+  query GetPastLaunches($limit: Int, $offset: Int, $search: String) {
+    launchesPast(
+      limit: $limit
+      offset: $offset
+      find: { mission_name: $search }
+      sort: "launch_date_local"
+      order: "asc"
+    ) {
       id
       launch_date_local
       launch_site {
@@ -25,17 +33,38 @@ const FLIGHT_LIST_QUERY = gql`
 `;
 
 export default function FlightListPageGraphQL() {
-  const { loading, data } = useQuery(FLIGHT_LIST_QUERY);
+  const [page, setPage] = useState(0);
+  const [searchTerm, setSearch] = useState("");
+  const [search, { loading, data }] = useLazyQuery(FLIGHT_LIST_QUERY, {
+    variables: {
+      limit: 10,
+      offset: page * 10,
+    },
+  });
+  useEffect(() => {
+    search();
+  }, [page]);
 
-  if (loading) {
+  const debouncer = useCallback(debounce(search, 1000), []);
+
+  if (loading || !data) {
     return <>Loading...</>;
   }
-
+  const onSearch = (searchTerm: string) => {
+    setSearch(searchTerm);
+    debouncer({ variables: { search: searchTerm } });
+  };
   return (
     <>
       <h2>Launch list</h2>
-      <FlightListFilters />
-      <FlightList launches={data.launchesPast} />
+      <FlightListFilters onFilterChange={onSearch} value={searchTerm} />
+      <FlightList launches={data?.launchesPast} />
+      <Pagination
+        onPrevPage={() => setPage((p) => p - 1)}
+        isPrevPage={page > 0}
+        isNextPage={data?.launchesPast.length === 10}
+        onNextPage={() => setPage((p) => p + 1)}
+      />
     </>
   );
 }
