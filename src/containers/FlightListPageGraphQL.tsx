@@ -1,7 +1,7 @@
 import { gql, useQuery } from "@apollo/client";
 
-import FlightList from "./FlightList";
-import FlightListFilters from "./FlightListFilters";
+import FlightList from "../components/FlightList";
+import FlightListFilters from "../components/FlightListFilters";
 
 const FLIGHT_LIST_QUERY = gql`
   query GetPastLaunches {

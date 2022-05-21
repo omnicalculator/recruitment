@@ -1,4 +1,4 @@
-import { Launch } from './FlightListTypes'
+import { Launch } from '../models/FlightListTypes'
 import LaunchRow from './FlightListRow'
 
 import './FlightList.css';

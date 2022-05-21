@@ -1,8 +1,8 @@
 import React from 'react';
 import ApiProvider from './ApiProvider';
-import FlightListPageGraphQL from './FlightListPageGraphQL';
+import FlightListPageGraphQL from './containers/FlightListPageGraphQL';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import FlightDetails from "./FlightDetails";
+import FlightDetails from "./components/FlightDetails";
 
 function App() {
   return (

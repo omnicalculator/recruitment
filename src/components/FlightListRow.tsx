@@ -1,4 +1,4 @@
-import { Launch } from "./FlightListTypes";
+import { Launch } from "../models/FlightListTypes";
 
 type Props = {
   launch: Launch;
