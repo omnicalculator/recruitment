@@ -1,14 +1,18 @@
 import React from 'react';
 import ApiProvider from './ApiProvider';
 import FlightListPageGraphQL from './FlightListPageGraphQL';
-// import FlightListPage from "./FlightListPage";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import FlightDetails from "./FlightDetails";
 
 function App() {
   return (
     <ApiProvider>
-      <h1>SpaceX App</h1>
-      {/*<FlightListPage />*/}
-      <FlightListPageGraphQL />
+        <BrowserRouter>
+            <Routes>
+                <Route path={'/'} element={<FlightListPageGraphQL />} />
+                <Route path={'/:id'} element={<FlightDetails/>}/>
+            </Routes>
+        </BrowserRouter>
     </ApiProvider>
   );
 }
